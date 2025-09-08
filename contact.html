@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - NELSA</title>
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+    <!-- Add animated gradient border to hero section -->
+    <style>
+.hero-animated-border {
+  position: relative;
+  z-index: 1;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.hero-animated-border::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  z-index: -1;
+  border-radius: 2.7rem;
+  background: linear-gradient(120deg, #10b981, #fbbf24, #6366f1, #10b981 90%);
+  background-size: 300% 300%;
+  animation: borderMove 6s linear infinite;
+}
+@keyframes borderMove {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+.glass-navbar {
+  background: rgba(255,255,255,0.7) !important;
+  box-shadow: 0 8px 32px rgba(16,185,129,0.18) !important;
+  backdrop-filter: blur(12px);
+  border-radius: 2rem !important;
+  border: 1.5px solid rgba(16,185,129,0.12);
+}
+.animated-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 30%, #10b98133 0, transparent 60%),
+              radial-gradient(circle at 80% 70%, #6366f133 0, transparent 60%),
+              linear-gradient(120deg, #fbbf2411 0%, #10b98111 100%);
+  animation: bgMove 12s linear infinite alternate;
+}
+@keyframes bgMove {
+  0% {background-position: 0 0, 100% 100%, 0 0;}
+  100% {background-position: 100% 0, 0 100%, 100% 100%;}
+}
+    </style>
+    <div class="animated-bg"></div>
+
+    <!-- Modern Navbar with Properly Placed Dark/Light Mode Button -->
+<header class="header" id="main-header">
+  <nav class="navbar glass-navbar" style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5vw;background:#fff;box-shadow:0 2px 12px rgba(16,185,129,0.08);border-radius:0 0 1.5rem 1.5rem;">
+    <div class="logo" style="font-size:2rem;font-weight:900;color:#10b981;letter-spacing:2px;">NELSA</div>
+    <ul class="nav-links" style="display:flex;gap:2.5vw;list-style:none;margin:0;padding:0;align-items:center;">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button id="darkModeToggle" aria-label="Toggle dark mode" style="margin-left:2vw;background:#f3f4f6;border:none;padding:0.7rem 1.2rem;border-radius:2rem;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 8px rgba(16,185,129,0.10);transition:background 0.3s;">🌙</button>
+  </nav>
+</header>
+
+    <!-- Contact Hero Section -->
+    <section class="page-hero hero-animated-border reveal" style="background:#10b981;color:#fff;padding:3rem 0 2rem 0;text-align:center;border-radius:0 0 32px 32px;box-shadow:0 4px 24px rgba(16,185,129,0.12);">
+        <h1 style="font-size:2.5rem;">📞 Contact Us</h1>
+        <p style="max-width:700px;margin:1.5rem auto 0;">Get in touch for your construction needs. We're here to help you build your dreams.</p>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-details">
+                    <h2>Get In Touch</h2>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>Nelsasolutions@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>0723380377</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📮</div>
+                        <div>
+                            <h3>Postal Address</h3>
+                            <p>224-20210 Litein</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Tegutwo Plaza, 3rd Floor, Litein</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Google Maps -->
+            <div class="map-container" style="margin-top: 2rem; border-radius: 10px; overflow: hidden;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.01907396413!2d35.3416666!3d-0.5816666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f7e2e2e2e2e2f%3A0xabcdefabcdefabcd!2sLitein%2C%20Kenya!5e0!3m2!1sen!2ske!4v1693574400000!5m2!1sen!2ske" 
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Gallery -->
+    <section class="contact-gallery" style="margin:2rem 0;text-align:center;">
+        <div style="display:flex;gap:2rem;justify-content:center;align-items:center;flex-wrap:wrap;">
+            <img src="assets/images/8.png" alt="Contact Image 8" style="max-width:320px;border-radius:16px;box-shadow:0 2px 12px rgba(16,185,129,0.12);">
+            <img src="assets/images/9.png" alt="Contact Image 9" style="max-width:320px;border-radius:16px;box-shadow:0 2px 12px rgba(16,185,129,0.12);">
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">How long does a typical construction project take?</button>
+                    <div class="faq-answer">
+                        <p>Project timelines vary based on scope and complexity. Small residential projects may take 3–6 months, while larger commercial projects can take 12–24 months.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Do you provide free estimates?</button>
+                    <div class="faq-answer">
+                        <p>Yes, we provide preliminary estimates. For detailed quotes, we may conduct a site visit and prepare comprehensive plans.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">What areas do you serve?</button>
+                    <div class="faq-answer">
+                        <p>We serve Litein and surrounding regions, and also undertake projects throughout Kenya. Contact us for your specific location.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>NELSA</h3>
+                    <p>Building your dreams, one project at a time.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 NELSA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <button id="scrollTopBtn" style="display:none;position:fixed;bottom:32px;left:32px;z-index:9999;background:#10b981;color:#fff;padding:0.8rem 1.1rem;border-radius:50%;box-shadow:0 4px 24px rgba(16,185,129,0.15);font-size:1.5rem;cursor:pointer;transition:background 0.3s;">↑</button>
+
+    <script src="js/contact.js"></script>
+    <script>
+    // Reveal on scroll
+    function revealOnScroll() {
+        document.querySelectorAll('.reveal').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                section.style.opacity = 1;
+                section.style.transform = 'translateY(0)';
+            } else {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(40px)';
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.reveal').forEach(s => {
+            s.style.transition = 'all 0.7s cubic-bezier(.77,0,.18,1)';
+            s.style.opacity = 0;
+            s.style.transform = 'translateY(40px)';
+        });
+        revealOnScroll();
+    });
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.style.display = 'block';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Subtle hover effects for cards and gallery
+    const cards = document.querySelectorAll('.contact-item, .gallery-item img, .faq-item');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'scale(1.04) translateY(-4px)';
+            card.style.boxShadow = '0 8px 32px rgba(16,185,129,0.18)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+        });
+    });
+    // Dark/Light mode functionality
+const darkModeToggle = document.getElementById('darkModeToggle');
+function setDarkMode(on) {
+  if(on) {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    darkModeToggle.textContent = '🌙';
+  }
+  localStorage.setItem('darkMode', on ? '1' : '0');
+}
+darkModeToggle.addEventListener('click',()=>{
+  setDarkMode(!document.body.classList.contains('dark-mode'));
+});
+if(localStorage.getItem('darkMode')==='1') setDarkMode(true);
+// Lightbox for all images
+function createLightbox() {
+  if(document.getElementById('lightbox-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'lightbox-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:99999;display:none;';
+  modal.innerHTML = '<img id="lightbox-img" style="max-width:90vw;max-height:80vh;border-radius:1.5rem;box-shadow:0 4px 32px #0008;" alt=""><button id="closeLightbox" style="position:absolute;top:2vw;right:2vw;background:#fff;border:none;border-radius:50%;font-size:2rem;padding:0.5rem 1rem;cursor:pointer;">×</button>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal || e.target.id === 'closeLightbox') { modal.style.display = 'none'; } });
+}
+createLightbox();
+document.querySelectorAll('img').forEach(img => {
+  if (!img.closest('a')) {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      const modal = document.getElementById('lightbox-modal');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      modal.style.display = 'flex';
+    });
+  }
+});
+    </script>
+    <!-- Add dark mode CSS and improved layout -->
+    <style>
+body.dark-mode {
+  background:#18181b !important;
+  color:#f3f4f6 !important;
+}
+body.dark-mode .header, body.dark-mode nav, body.dark-mode .navbar {
+  background:#23272f !important;
+  color:#f3f4f6 !important;
+  box-shadow:0 2px 12px rgba(16,185,129,0.18) !important;
+}
+body.dark-mode .section-title, body.dark-mode h2, body.dark-mode h1, body.dark-mode h3, body-dark-mode h4 {
+  color:#10b981 !important;
+}
+body.dark-mode .container {
+  background:#23272f !important;
+  color:#f3f4f6 !important;
+}
+body.dark-mode img {
+  box-shadow:0 2px 12px rgba(16,185,129,0.22) !important;
+}
+body {
+  font-family:'Inter',sans-serif;
+  background:#f8fafc;
+  color:#1e293b;
+  margin:0;
+  padding:0;
+  line-height:1.7;
+}
+.container {
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 2vw;
+}
+.section-title {
+  font-size:2.5rem;
+  font-weight:800;
+  margin-bottom:2rem;
+  color:#10b981;
+  letter-spacing:1px;
+}
+img {
+  border-radius:1.2rem;
+  box-shadow:0 2px 12px rgba(16,185,129,0.10);
+  transition:transform 0.2s,box-shadow 0.2s;
+  cursor:pointer;
+}
+img:hover {
+  transform:scale(1.04) rotate(-1deg);
+  box-shadow:0 6px 32px rgba(16,185,129,0.18);
+}
+.navbar a {
+  color:#1e293b;
+  text-decoration:none;
+  font-weight:600;
+  font-size:1.1rem;
+  transition:color 0.2s;
+}
+.navbar a:hover {
+  color:#10b981;
+}
+#darkModeToggle {
+  margin-left:2vw;
+  background:#f3f4f6;
+  border:none;
+  padding:0.7rem 1.2rem;
+  border-radius:2rem;
+  font-size:1.2rem;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(16,185,129,0.10);
+  transition:background 0.3s;
+}
+#darkModeToggle:hover {
+  background:#10b981;
+  color:#fff;
+}
+    </style>
+</body>
+</html>
