@@ -37,7 +37,7 @@
 
     <!-- Modern Navbar with Properly Placed Dark/Light Mode Button -->
 <header class="header" id="main-header">
-  <nav class="navbar glass-navbar" style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5vw;">
+  <nav class="navbar">
     <div class="logo" style="font-size:2rem;font-weight:900;color:#10b981;letter-spacing:2px;">NELSA</div>
     <ul class="nav-links" style="display:flex;gap:2.5vw;list-style:none;margin:0;padding:0;align-items:center;">
       <li><a href="index.html">Home</a></li>
@@ -336,6 +336,66 @@ img:hover {
 #darkModeToggle:hover {
   background:#10b981;
   color:#fff;
+}
+
+/* Navbar improvements */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent;
+}
+.navbar {
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 8px 32px rgba(16,185,129,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  margin: 1.5rem auto 2.5rem auto;
+  max-width: 1200px;
+  padding: 1.5rem 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #10b981;
+  letter-spacing: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5vw;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+#darkModeToggle {
+  margin-left: 2vw;
+}
+/* Hero/title spacing */
+.hero, .page-hero {
+  margin-top: 2.5rem !important;
+}
+/* Footer improvements */
+.footer {
+  background: #18181b !important;
+  color: #f3f4f6 !important;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 -4px 32px rgba(16,185,129,0.10);
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+.footer .footer-content {
+  border-bottom: 1px solid #23272f;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.footer-bottom {
+  color: #94a3b8;
+  font-size: 1rem;
 }
 
 /* Add animated gradient border to hero section */
