@@ -22,26 +22,56 @@
       position: relative;
       overflow: hidden;
     }
+    /* Masonry grid and gallery enhancements */
     .gallery-collage {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
-      justify-content: center;
+      justify-items: center;
+      align-items: stretch;
       margin: 3rem auto 2rem auto;
       max-width: 1200px;
     }
-    .gallery-collage img {
+    .gallery-collage a {
+      display: block;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
       border-radius: 1.2rem;
       box-shadow: 0 2px 12px rgba(16,185,129,0.10);
-      width: 280px;
-      height: 200px;
+      animation: fadeInUp 0.7s cubic-bezier(.77,0,.18,1);
+    }
+    .gallery-collage img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      border-radius: 1.2rem;
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
+      loading: lazy;
     }
-    .gallery-collage img:hover {
+    .gallery-collage a:hover img {
       transform: scale(1.04) rotate(-1deg);
       box-shadow: 0 6px 32px rgba(16,185,129,0.18);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(0deg, #18181bcc 80%, transparent 100%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.7rem 1rem;
+      border-radius: 0 0 1.2rem 1.2rem;
+      opacity: 0.92;
+      pointer-events: none;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .testimonials-section {
       background: #fff;
@@ -169,44 +199,127 @@
     <h1>Our Gallery</h1>
     <p>Explore our work and see the quality we deliver. Below is a collage of our favorite project photos, followed by real client reviews.</p>
   </section>
-  <div class="gallery-collage">
-    <a href="assets/images/1.png" class="gallery-img-link"><img src="assets/images/1.png" alt="Project Image 1"></a>
-    <a href="assets/images/2.png" class="gallery-img-link"><img src="assets/images/2.png" alt="Project Image 2"></a>
-    <a href="assets/images/3.png" class="gallery-img-link"><img src="assets/images/3.png" alt="Project Image 3"></a>
-    <a href="assets/images/4.png" class="gallery-img-link"><img src="assets/images/4.png" alt="Project Image 4"></a>
-    <a href="assets/images/5.png" class="gallery-img-link"><img src="assets/images/5.png" alt="Project Image 5"></a>
-    <a href="assets/images/6.png" class="gallery-img-link"><img src="assets/images/6.png" alt="Project Image 6"></a>
-    <a href="assets/images/7.png" class="gallery-img-link"><img src="assets/images/7.png" alt="Project Image 7"></a>
-    <a href="assets/images/8.png" class="gallery-img-link"><img src="assets/images/8.png" alt="Project Image 8"></a>
-    <a href="assets/images/9.png" class="gallery-img-link"><img src="assets/images/9.png" alt="Project Image 9"></a>
-    <a href="assets/images/11.png" class="gallery-img-link"><img src="assets/images/11.png" alt="Project Image 11"></a>
-    <a href="assets/images/12.png" class="gallery-img-link"><img src="assets/images/12.png" alt="Project Image 12"></a>
-    <a href="assets/images/Screenshot 2025-09-05 124838.png" class="gallery-img-link"><img src="assets/images/Screenshot 2025-09-05 124838.png" alt="Project Screenshot 1"></a>
-    <a href="assets/images/Screenshot 2025-09-05 125028.png" class="gallery-img-link"><img src="assets/images/Screenshot 2025-09-05 125028.png" alt="Project Screenshot 2"></a>
-    <a href="assets/images/Screenshot 2025-09-05 125100.png" class="gallery-img-link"><img src="assets/images/Screenshot 2025-09-05 125100.png" alt="Project Screenshot 3"></a>
+  <!-- Gallery filters and count -->
+  <div class="gallery-filters">
+    <button class="gallery-filter-btn active" data-filter="all">All</button>
+    <button class="gallery-filter-btn" data-filter="residential">Residential</button>
+    <button class="gallery-filter-btn" data-filter="commercial">Commercial</button>
+    <button class="gallery-filter-btn" data-filter="school">School</button>
   </div>
+  <div id="gallery-count" class="gallery-count"></div>
+  <!-- Masonry grid gallery -->
+  <div class="gallery-collage"></div>
   <script>
-    // Lightbox for all images (including those inside links)
+    // Gallery filter logic
+    const galleryImages = [
+      {src:'assets/images/1.png',caption:'Residential',cat:'residential'},
+      {src:'assets/images/2.png',caption:'Residential',cat:'residential'},
+      {src:'assets/images/3.png',caption:'Residential',cat:'residential'},
+      {src:'assets/images/4.png',caption:'Commercial',cat:'commercial'},
+      {src:'assets/images/5.png',caption:'School',cat:'school'},
+      {src:'assets/images/6.png',caption:'School',cat:'school'},
+      {src:'assets/images/7.png',caption:'School',cat:'school'},
+      {src:'assets/images/8.png',caption:'Commercial',cat:'commercial'},
+      {src:'assets/images/9.png',caption:'Commercial',cat:'commercial'},
+      {src:'assets/images/11.png',caption:'School',cat:'school'},
+      {src:'assets/images/12.png',caption:'Residential',cat:'residential'},
+      {src:'assets/images/Screenshot 2025-09-05 124838.png',caption:'Commercial',cat:'commercial'},
+      {src:'assets/images/Screenshot 2025-09-05 125028.png',caption:'Residential',cat:'residential'},
+      {src:'assets/images/Screenshot 2025-09-05 125100.png',caption:'School',cat:'school'}
+    ];
+    function renderGallery(filter) {
+      const grid = document.querySelector('.gallery-collage');
+      grid.innerHTML = '';
+      let count = 0;
+      galleryImages.forEach(img => {
+        if(!filter || filter==='all' || img.cat===filter) {
+          count++;
+          const a = document.createElement('a');
+          a.href = img.src;
+          a.className = 'gallery-img-link';
+          a.setAttribute('data-cat',img.cat);
+          a.innerHTML = `<img src="${img.src}" alt="${img.caption}" loading="lazy"><div class="gallery-caption">${img.caption}</div>`;
+          grid.appendChild(a);
+        }
+      });
+      document.getElementById('gallery-count').textContent = `Showing ${count} project photos`;
+    }
+    document.addEventListener('DOMContentLoaded',()=>{
+      renderGallery('all');
+      document.querySelectorAll('.gallery-filter-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          document.querySelectorAll('.gallery-filter-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          renderGallery(btn.getAttribute('data-filter'));
+        });
+      });
+    });
+    // Lightbox with fullscreen and keyboard navigation
     function createLightbox() {
       if(document.getElementById('lightbox-modal')) return;
       const modal = document.createElement('div');
       modal.id = 'lightbox-modal';
       modal.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:99999;display:none;';
-      modal.innerHTML = '<img id="lightbox-img" style="max-width:90vw;max-height:80vh;border-radius:1.5rem;box-shadow:0 4px 32px #0008;" alt=""><button id="closeLightbox" style="position:absolute;top:2vw;right:2vw;background:#fff;border:none;border-radius:50%;font-size:2rem;padding:0.5rem 1rem;cursor:pointer;">×</button>';
+      modal.innerHTML = '<img id="lightbox-img" style="max-width:90vw;max-height:80vh;border-radius:1.5rem;box-shadow:0 4px 32px #0008;" alt=""><button id="closeLightbox" style="position:absolute;top:2vw;right:2vw;background:#fff;border:none;border-radius:50%;font-size:2rem;padding:0.5rem 1rem;cursor:pointer;">×</button><button id="fullscreenBtn" style="position:absolute;top:2vw;left:2vw;background:#2563eb;border:none;border-radius:50%;font-size:1.5rem;padding:0.5rem 1rem;cursor:pointer;color:#fff;">⛶</button>';
       document.body.appendChild(modal);
       modal.addEventListener('click',e=>{if(e.target===modal||e.target.id==='closeLightbox'){modal.style.display='none';}});
+      document.getElementById('fullscreenBtn').addEventListener('click',()=>{
+        const img = document.getElementById('lightbox-img');
+        if(img.requestFullscreen) img.requestFullscreen();
+      });
     }
     createLightbox();
-    document.querySelectorAll('.gallery-img-link').forEach(link=>{
-      link.addEventListener('click',e=>{
+    function getGalleryLinks(){return Array.from(document.querySelectorAll('.gallery-img-link'));}
+    function showLightbox(idx){
+      const imgObj = galleryImages[idx];
+      const modal = document.getElementById('lightbox-modal');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = imgObj.src;
+      lightboxImg.alt = imgObj.caption;
+      modal.style.display = 'flex';
+      modal.setAttribute('data-idx',idx);
+    }
+    document.addEventListener('click',e=>{
+      if(e.target.closest('.gallery-img-link')){
         e.preventDefault();
-        const img = link.querySelector('img');
-        const modal = document.getElementById('lightbox-modal');
-        const lightboxImg = document.getElementById('lightbox-img');
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        modal.style.display = 'flex';
-      });
+        const links = getGalleryLinks();
+        const idx = links.indexOf(e.target.closest('.gallery-img-link'));
+        showLightbox(idx);
+      }
+    });
+    document.addEventListener('keydown',e=>{
+      const modal = document.getElementById('lightbox-modal');
+      if(modal.style.display==='flex'){
+        let idx = parseInt(modal.getAttribute('data-idx'));
+        if(e.key==='ArrowRight'){
+          idx = (idx+1)%galleryImages.length;
+          showLightbox(idx);
+        } else if(e.key==='ArrowLeft'){
+          idx = (idx-1+galleryImages.length)%galleryImages.length;
+          showLightbox(idx);
+        } else if(e.key==='Escape'){
+          modal.style.display='none';
+        }
+      }
+    });
+    // Mobile swipe gestures for lightbox
+    let touchStartX = null;
+    document.getElementById('lightbox-modal').addEventListener('touchstart',e=>{
+      touchStartX = e.touches[0].clientX;
+    });
+    document.getElementById('lightbox-modal').addEventListener('touchend',e=>{
+      if(touchStartX!==null){
+        const touchEndX = e.changedTouches[0].clientX;
+        let idx = parseInt(document.getElementById('lightbox-modal').getAttribute('data-idx'));
+        if(touchEndX-touchStartX>50){
+          idx = (idx-1+galleryImages.length)%galleryImages.length;
+          showLightbox(idx);
+        } else if(touchStartX-touchEndX>50){
+          idx = (idx+1)%galleryImages.length;
+          showLightbox(idx);
+        }
+        touchStartX = null;
+      }
     });
   </script>
   <section class="testimonials-section">

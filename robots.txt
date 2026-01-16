@@ -1,4 +1,9 @@
+# Allow all well-behaved crawlers to index the site
 User-agent: *
-Allow: /
+Disallow:
 
+# Recommended: point to your sitemap for faster indexing
 Sitemap: https://nelsa.com/sitemap.xml
+
+# If you later want to block specific paths, add rules like:
+# Disallow: /private/
